@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BT5: Tìm Kiếm Sản Phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+            width: 300px;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #444;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .not-found {
+            color: darkorange;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h2>Tìm kiếm sản phẩm theo tên hoặc mã</h2>
+
+<form method="post" th:action="@{/ss15bt5}" th:object="${product}">
+    <input type="text" th:field="*{name}" placeholder="Nhập tên hoặc mã sản phẩm">
+    <input type="submit" value="Tìm kiếm">
+</form>
+
+<div th:if="${error}" class="error">Vui lòng nhập từ khóa tìm kiếm!</div>
+
+<table th:if="${not #lists.isEmpty(results)}">
+    <thead>
+    <tr>
+        <th>Mã</th>
+        <th>Tên</th>
+        <th>Giá</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${results}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${!error and #lists.isEmpty(results)}" class="not-found">
+    Không tìm thấy sản phẩm phù hợp.
+</div>
+</body>
+</html>

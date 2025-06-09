@@ -27,18 +27,38 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     implementation 'javax.servlet:jstl:1.2'
+
     // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
     implementation("org.springframework:spring-webmvc:5.3.18")
+
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation("mysql:mysql-connector-java:8.0.28")
     implementation 'commons-fileupload:commons-fileupload:1.4'
+
+    //Cloudinary Java SDK:
+    implementation 'com.cloudinary:cloudinary-http44:1.36.0'
+
     // Validation
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
 
+    // thymeleaf
     implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
     implementation("org.thymeleaf:thymeleaf-spring5:3.1.2.RELEASE")
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
+
+    // Hibernate core
+    implementation 'org.hibernate:hibernate-core:5.6.15.Final'
+
+    // Spring ORM (tích hợp Hibernate vào Spring)
+    implementation 'org.springframework:spring-orm:5.3.30'
+
+    // SLF4J (Logging cho Hibernate)
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    runtimeOnly 'org.slf4j:slf4j-simple:1.7.30'
+
+    // JDBC Driver (VD: MySQL)
+    runtimeOnly 'mysql:mysql-connector-java:8.0.23'
 }
 
 test {

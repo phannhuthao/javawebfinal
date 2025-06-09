@@ -1,10 +1,15 @@
 package org.example.javawebviewsession.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -18,7 +23,9 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import javax.sql.DataSource;
 import java.util.Locale;
+import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
@@ -94,4 +101,46 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
+
+//    @Configuration // Đánh dấu class là cấu hình Spring (Java-based config)
+//    @EnableTransactionManagement // Bật hỗ trợ @Transactional
+//    @ComponentScan(basePackages = "org.example.javawebviewsession") // Tự động quét các @Component, @Service, @Repository...
+//    public class HibernateConfig {
+//
+//        // Cấu hình DataSource kết nối đến MySQL, thiết lập nguồn dữ liệu, giúp Hibernate biết cách kết nối đến database.
+//        @Bean
+//        public DataSource dataSource() {
+//            DriverManagerDataSource ds = new DriverManagerDataSource();
+//            ds.setDriverClassName("com.mysql.cj.jdbc.Driver"); // JDBC Driver cho MySQL
+//            ds.setUrl("jdbc:mysql://localhost:3306/"); // Đường dẫn DB
+//            ds.setUsername("root"); // Tên đăng nhập DB
+//            ds.setPassword("your_password"); // Mật khẩu DB
+//            return ds;
+//        }
+//
+//        // Cấu hình Hibernate SessionFactory
+//        @Bean
+//        public LocalSessionFactoryBean sessionFactory() {
+//            LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
+//            sf.setDataSource(dataSource()); // Gắn kết với DataSource đã cấu hình
+//            sf.setPackagesToScan("com.example.entity"); // Chỉ định package chứa các @Entity
+//
+//            // Cấu hình các thuộc tính Hibernate
+//            Properties props = new Properties();
+//            props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect"); // Dialect cho MySQL
+//            props.setProperty("hibernate.hbm2ddl.auto", "update"); // Tự động cập nhật bảng DB theo entity
+//            props.setProperty("hibernate.show_sql", "true"); // In SQL ra console
+//            sf.setHibernateProperties(props);
+//
+//            return sf;
+//        }
+//
+//        // Cấu hình Hibernate Transaction Manager để dùng @Transactional
+//        @Bean
+//        public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+//            return new HibernateTransactionManager(sessionFactory);
+//        }
+//    }
+
+
 }

@@ -1,0 +1,97 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    h1 {
+        color: #ffffff;
+        text-shadow: 0 0 10px #00bcd4, 0 0 20px #00bcd4;
+        margin-bottom: 20px;
+    }
+
+    form {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        backdrop-filter: blur(10px);
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        background-color: #222;
+        color: #fff;
+        box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+        transition: 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus {
+        outline: none;
+        background-color: #333;
+        box-shadow: 0 0 10px #00bcd4;
+    }
+
+    input[type="submit"] {
+        background-color: #00bcd4;
+        color: black;
+        font-weight: bold;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        box-shadow: 0 0 10px #00bcd4, 0 0 20px #00bcd4;
+        transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #00e5ff;
+        box-shadow: 0 0 15px #00e5ff, 0 0 30px #00e5ff;
+    }
+
+    span {
+        font-size: 0.85em;
+        color: #ff4d4d;
+        text-shadow: 0 0 5px red;
+        margin-bottom: 10px;
+    }
+</style>
+
+<body>
+<h1>Trang Đăng Ký</h1>
+<form th:action="@{/register}" th:object="${user}" method="post">
+    <input type="text" th:field="*{username}" placeholder="Tên đăng nhập">
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red"></span><br>
+
+    <input type="password" th:field="*{password}" placeholder="Mật khẩu">
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></span><br>
+
+    <input type="text" th:field="*{email}" placeholder="Email">
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span><br>
+
+    <input type="submit" value="Đăng ký">
+</form>
+</body>
+</html>

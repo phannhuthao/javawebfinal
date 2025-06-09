@@ -1,8 +1,141 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home</title>
+    <title>Danh sách chuyến xe</title>
 </head>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    form {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        width: 300px;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 10px 15px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    div {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    a {
+        margin: 0 5px;
+        padding: 5px 10px;
+        color: #4CAF50;
+        text-decoration: none;
+        border: 1px solid #4CAF50;
+        border-radius: 4px;
+    }
+
+    a:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    a[style*="font-weight:bold"] {
+        background-color: #4CAF50;
+        color: white;
+        pointer-events: none;
+    }
+</style>
+
 <body>
-<h1>Trang Chủ</h1>
+<h1>Danh sách chuyến xe</h1>
+
+<form th:action="@{/home}" method="get">
+    <input type="text" name="search" th:value="${search}" placeholder="Nhập điểm đi hoặc điểm đến">
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên Xe</th>
+        <th>Điểm Đi</th>
+        <th>Điểm Đến</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trip : ${trips}">
+        <td th:text="${trip.id}">1</td>
+        <td th:text="${trip.carName}">Xe A</td>
+        <td th:text="${trip.departure}">Hà Nội</td>
+        <td th:text="${trip.destination}">Sài Gòn</td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <span th:if="${totalPages > 1}">
+        <a th:if="${currentPage > 1}"
+           th:href="@{/home(search=${search}, page=${currentPage - 1})}">Trước</a>
+
+        <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+            <a th:href="@{/home(search=${search}, page=${i})}"
+               th:text="${i}"
+               th:style="${i == currentPage ? 'font-weight:bold' : ''}"></a>
+        </span>
+
+        <a th:if="${currentPage < totalPages}"
+           th:href="@{/home(search=${search}, page=${currentPage + 1})}">Sau</a>
+    </span>
+</div>
+
 </body>
 </html>
